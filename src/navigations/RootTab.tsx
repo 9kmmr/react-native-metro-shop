@@ -16,8 +16,13 @@ const index = (): JSX.Element => {
     const user = useSelector(state => state.user)
     const navigationOptions: MaterialTopTabNavigationOptions = {
     }
-    const tabBarOptions: MaterialTopTabBarOptions = {
-       
+    const tabBarOptions = {
+        indicatorStyle : {
+            display: 'none'
+        },
+        tabStyle: {
+            display: 'none'
+        }
         
     }
     const logined = !!user?.user?.userInfo
