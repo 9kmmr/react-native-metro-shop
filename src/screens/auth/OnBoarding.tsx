@@ -3,40 +3,62 @@ import { View, StyleSheet,  Dimensions } from 'react-native';
 
 import Animated, { interpolateColor, useSharedValue, useAnimatedScrollHandler, useAnimatedStyle } from 'react-native-reanimated';
 import Dot from '../../components/Dot';
+import Theme from '../../components/Theme';
 
 import Slide, { SLIDE_HEIGHT } from '../../components/Slide';
 import Subslide from '../../components/Subslide';
+import SliderImage from '../../components/SliderImage';
 
 const { width } = Dimensions.get("window");
 
 const slides = [
     {
       title: 'Relaxed',
-      color: '#BFEAF5',
+      color: '#FEC56C',
       subtitle: 'Find Your Outfits',
       description:
         "Confused about your outfits? Don't worry find the best oufit here",
+      picture: {
+        src: require('../../assets/images/onboarding-2.jpg'),
+        width: 2513,
+        height: 3583,
+      },
     },
     {
       title: 'Playfull',
-      color: '#BEECC4',
+      color: '#E4919B',
       subtitle: 'Hear it First, Wear it First',
       description:
         'Hating the clothes in your wardrobe? Explore hundreds of ourfit ideas',
+      picture: {
+        src: require('../../assets/images/onboarding-1.jpg'),
+        width: 2513,
+        height: 3583,
+      },
     },
     {
       title: 'Excentric',
-      color: '#FFE4D9',
+      color: '#0084BC',
       subtitle: 'Your Style, Your Way',
       description:
         'Create your individuals & unique style and look amazing everyday',
+      picture: {
+        src: require('../../assets/images/onboarding-3.jpg'),
+        width: 2513,
+        height: 3583,
+      },
     },
     {
       title: 'Funky',
-      color: '#FFDDDD',
+      color: '#FE94AA',
       subtitle: 'Look Good, Feel Good',
       description:
         'Discover the best trends in fashion and explore your personality',
+      picture: {
+        src: require('../../assets/images/onboarding-4.jpg'),
+        width: 2513,
+        height: 3583,
+      },
     },
   ];
 
@@ -48,7 +70,16 @@ function OnBoarding() {
         const backgroundColor = interpolateColor(
             scrollOffset.value,
             [0, width, width*2, width *3],
-            ['#BFEAF5', '#BEECC4', '#FFE4D9', '#FFDDDD']
+            ['#FEC56C', '#E4919B', '#0084BC', '#FE94AA']
+
+        );
+        return { backgroundColor };
+    });
+    const bottombackgroundStyles = useAnimatedStyle(() => {
+        const backgroundColor = interpolateColor(
+            scrollOffset.value,
+            [0, width, width*2, width *3],
+            ['#FEC56C', '#E4919B', '#0084BC', '#FE94AA']
 
         );
         return { backgroundColor };
@@ -69,7 +100,15 @@ function OnBoarding() {
 
     return (
         <View style={styles.container}>
-            <Animated.View style={styles.slider}>
+            <Animated.View style={[styles.slider, backgroundStyles]}>
+                {slides.map( ({picture}, index) => {
+                    return <SliderImage
+                        key={index}
+                        index={index}
+                        scrollOffset={scrollOffset}
+                        picture={picture}
+                    />
+                } )}
                 <Animated.ScrollView
                     horizontal
                     snapToInterval={width}
@@ -78,17 +117,18 @@ function OnBoarding() {
                     bounces={false}
                     onScroll={scrollHandler}
                     scrollEventThrottle={1}
-
-                >
+                    ref={scrollRef}
+                    
+                    >
                     {slides.map( ({title}, index) => (
-                        <Slide label={title} key={index}  />
+                        <Slide label={title} key={index}  right={!!(index % 2)} />
                     ))}
 
                 </Animated.ScrollView>
 
             </Animated.View>
             <View style={styles.footer}>
-                <Animated.View style={[StyleSheet.absoluteFillObject, backgroundStyles]} />
+                <Animated.View style={[StyleSheet.absoluteFillObject, bottombackgroundStyles]} />
                 <View style={styles.footerContent}>
                 
                     <Animated.View style={styles.pagination}>
@@ -102,7 +142,10 @@ function OnBoarding() {
                         width: width * slides.length,
                         flexDirection: "row"
 
-                    }]}>
+                    }, transfromStyle
+                    
+                    
+                    ]}>
 
                         {
                             slides.map( ({subtitle, description}, index) => {
@@ -137,14 +180,15 @@ const styles = StyleSheet.create({
     },
     slider: {
         height: SLIDE_HEIGHT,
-
+        borderBottomRightRadius: Theme.borderRadii.xl,
     },
     footer: {
         flex: 1
     },
     footerContent: {
         flex: 1,
-        backgroundColor: "white"
+        backgroundColor: "white",
+        borderTopLeftRadius: Theme.borderRadii.xl,
     },
     pagination: {
         ... StyleSheet.absoluteFillObject,

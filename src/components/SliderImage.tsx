@@ -4,6 +4,8 @@ import { ImageRequireSource, StyleSheet } from 'react-native';
 import Animated, { Extrapolate } from 'react-native-reanimated';
 import { interpolate } from 'react-native-reanimated';
 import { useAnimatedStyle } from 'react-native-reanimated';
+import Theme from './Theme';
+
 
 const {width} = Dimensions.get("window");
 
@@ -45,13 +47,15 @@ function SliderImage({index, scrollOffset, picture}: SliderImageProps) {
 const styles = StyleSheet.create({
     underlay: {
         ...StyleSheet.absoluteFillObject,
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        borderBottomRightRadius: Theme.borderRadii.xl,
 
     },
     picture: {
         ...StyleSheet.absoluteFillObject,
         width: undefined,
         height: undefined,
+        borderBottomRightRadius: Theme.borderRadii.xl,
     }
 
 })
