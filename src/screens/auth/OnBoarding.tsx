@@ -3,7 +3,7 @@ import { View, StyleSheet,  Dimensions } from 'react-native';
 
 import Animated, { interpolateColor, useSharedValue, useAnimatedScrollHandler, useAnimatedStyle } from 'react-native-reanimated';
 import Dot from '../../components/Dot';
-import Theme from '../../components/Theme';
+
 
 import Slide, { SLIDE_HEIGHT } from '../../components/Slide';
 import Subslide from '../../components/Subslide';
@@ -132,8 +132,8 @@ function OnBoarding() {
                 <View style={styles.footerContent}>
                 
                     <Animated.View style={styles.pagination}>
-                        {slides.map((_, index) => {
-                            <Dot key={index} scrollOffset={scrollOffset} index={index} />
+                        {slides.map((element, index) => {
+                            return <Dot key={index} scrollOffset={scrollOffset} index={index} />
                         })}
 
                     </Animated.View>
@@ -149,11 +149,12 @@ function OnBoarding() {
 
                         {
                             slides.map( ({subtitle, description}, index) => {
-                                <Subslide
+
+                                return <Subslide
                                     onPress={() => {
                                         if (scrollRef.current) {
                                             scrollRef.current
-                                            .getNode()
+                                            
                                             .scrollTo({ x: width * (index + 1), animated: true })
                                         }
                                     }}
@@ -180,21 +181,21 @@ const styles = StyleSheet.create({
     },
     slider: {
         height: SLIDE_HEIGHT,
-        borderBottomRightRadius: Theme.borderRadii.xl,
+        borderBottomRightRadius: 75,
     },
     footer: {
         flex: 1
     },
     footerContent: {
-        flex: 1,
+        flex: 1,        
         backgroundColor: "white",
-        borderTopLeftRadius: Theme.borderRadii.xl,
+        borderTopLeftRadius: 75,
     },
     pagination: {
         ... StyleSheet.absoluteFillObject,
         flex: 1,
-        top: 12,
-        height: 8,
+        top: 30,
+        height: 6,
         flexDirection: "row",
         justifyContent: "center"
     }

@@ -38,10 +38,10 @@ function Dot( {index, scrollOffset}: DotProps) {
 
 const styles = StyleSheet.create({
     dot: {
-        backgroundColor: "#2CB9B0",
-        width: 8,
-        borderRadius: 4,
-        marginRight: 4
+        backgroundColor: "#2cb9b0",
+        width: 6,
+        borderRadius: 3,
+        marginRight: 6
     }    
 })
 

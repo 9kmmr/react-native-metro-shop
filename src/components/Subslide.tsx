@@ -1,8 +1,8 @@
-import React from 'react';
-import {  StyleSheet, View } from 'react-native';
+import React, { useContext } from 'react';
+import {  StyleSheet, View, Text } from 'react-native';
 import Animated from 'react-native-reanimated';
 import Button  from '../components/Button'
-import {Text} from './Theme';
+import {ThemeContext} from '../theme'
 
 interface Subslide {
     subtitle: string;
@@ -14,10 +14,13 @@ interface Subslide {
 
 
 const Subslide = ({ subtitle, description, last, x, onPress}: Subslide) =>  {
+
+    const theme = useContext(ThemeContext);
+
     return (
         <View style={styles.container} >            
-            <Text variant="title2" style={styles.subtitle} >{subtitle}</Text>
-            <Text variant="body" style={styles.description} >{description}</Text>          
+            <Text  style={[theme.typography.title2,  styles.subtitle]} >{subtitle}</Text>
+            <Text  style={[theme.typography.body, styles.description]} >{description}</Text>          
             <Button
                 label={last ? "Let's Get Started": 'Next'}
                 variant={last ? 'primary' : 'default' }
@@ -31,19 +34,27 @@ const Subslide = ({ subtitle, description, last, x, onPress}: Subslide) =>  {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        
         justifyContent: "center",
-        alignContent: "center"
+        alignItems: "center",
+        padding: 44
+       
     },
     subtitle: {
         fontFamily: "SFProText-Semibold",
         fontSize: 24,
-        color: "#0C0D34"
+        lineHeight: 30,
+        marginBottom: 12,
+        color: "#0C0D34",
+        textAlign: "center"
     },
     description: {
         fontFamily: "SFProText-Regular",
         fontSize: 16,
         lineHeight: 24,
-        color: "#0C0D34"
+        color: "#0C0D34",
+        textAlign: "center",
+        marginBottom: 30
     }
 })
 

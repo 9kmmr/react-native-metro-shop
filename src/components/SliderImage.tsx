@@ -4,7 +4,7 @@ import { ImageRequireSource, StyleSheet } from 'react-native';
 import Animated, { Extrapolate } from 'react-native-reanimated';
 import { interpolate } from 'react-native-reanimated';
 import { useAnimatedStyle } from 'react-native-reanimated';
-import Theme from './Theme';
+import { ThemeContext } from '../theme';
 
 
 const {width} = Dimensions.get("window");
@@ -22,6 +22,8 @@ interface SliderImageProps {
 
 
 function SliderImage({index, scrollOffset, picture}: SliderImageProps) {
+
+    
 
     const opacityStyle = useAnimatedStyle(() => {
         const opacity = interpolate(
@@ -48,14 +50,14 @@ const styles = StyleSheet.create({
     underlay: {
         ...StyleSheet.absoluteFillObject,
         justifyContent: "flex-end",
-        borderBottomRightRadius: Theme.borderRadii.xl,
+        borderBottomRightRadius: 75,
 
     },
     picture: {
         ...StyleSheet.absoluteFillObject,
         width: undefined,
         height: undefined,
-        borderBottomRightRadius: Theme.borderRadii.xl,
+        borderBottomRightRadius: 75,
     }
 
 })
