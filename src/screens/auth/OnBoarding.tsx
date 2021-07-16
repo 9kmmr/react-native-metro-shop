@@ -2,9 +2,10 @@ import React, { useRef } from 'react';
 import { View, StyleSheet,  Dimensions } from 'react-native';
 
 import Animated, { interpolateColor, useSharedValue, useAnimatedScrollHandler, useAnimatedStyle } from 'react-native-reanimated';
+
+import { navigation } from '../../navigations/RootNavigation';
+
 import Dot from '../../components/Dot';
-
-
 import Slide, { SLIDE_HEIGHT } from '../../components/Slide';
 import Subslide from '../../components/Subslide';
 import SliderImage from '../../components/SliderImage';
@@ -61,6 +62,7 @@ const slides = [
       },
     },
   ];
+
 
 function OnBoarding() {
     
@@ -149,17 +151,22 @@ function OnBoarding() {
 
                         {
                             slides.map( ({subtitle, description}, index) => {
-
+                                const last = index === slides.length - 1;
                                 return <Subslide
                                     onPress={() => {
-                                        if (scrollRef.current) {
-                                            scrollRef.current
-                                            
-                                            .scrollTo({ x: width * (index + 1), animated: true })
+                                        if (last) {
+                                            navigation.navigate("Welcome");
+                                        } else {
+
+                                            if (scrollRef.current) {
+                                                scrollRef.current
+                                                
+                                                .scrollTo({ x: width * (index + 1), animated: true })
+                                            }
                                         }
                                     }}
                                     key={index}
-                                    last={index === slides.length - 1}
+                                    last={last}
                                     x={scrollOffset}
                                     {...{subtitle, description}}
                                 />
@@ -168,8 +175,6 @@ function OnBoarding() {
                     </Animated.View>
                 </View>
             </View>
-
-
         </View>
     );
 }

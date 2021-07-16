@@ -6,7 +6,7 @@ import {
 import { createStackNavigator, StackNavigationOptions, TransitionPresets } from '@react-navigation/stack';
 import React from 'react';
 import RootTab from './RootTab';
-
+import { navigationRef } from './RootNavigation'
 
 export type SuperRootStackParamList = {
     Home: undefined,
@@ -24,7 +24,7 @@ const index = ():JSX.Element => {
         }
     }
 
-    const navigationRef: React.RefObject<NavigationContainerRef> = React.createRef();
+    
 
     return (
         <NavigationContainer  ref={navigationRef} >

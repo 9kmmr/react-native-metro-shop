@@ -12,7 +12,7 @@ interface ButtonProps {
 }
 
 
-function Button({variant='default', label, onPress}: ButtonProps  ) {
+function Button({label, variant='default',  onPress}: ButtonProps  ) {
 
 
     const theme = useContext(ThemeContext);
@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
         height: 50,
         width: 245,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        
     },
     label: {
         fontSize: 15,
